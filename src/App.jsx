@@ -172,7 +172,7 @@ export const App = () => {
       <div className="container m-auto p-5 bg-white h-full rounded-2xl shadow-lg">
 
         <header className="text-center">
-          <h1 className="fa-2x text-gray-500 p-2"><i class="fa-solid fa-bars-progress"></i> Crud Operator app</h1>
+          <h1 className="fa-2x text-gray-500 p-2"><i class="fa-solid fa-bars-progress"></i> Crud Web App</h1>
           <div className="flex justify-between flex-col md:flex-row">
             <div className="w-15 ml-0 mr-auto my-auto p-0 text-left uppercase">Order By: </div>
             <div className="flex justify-start w-2/4 ml-0 mr-auto my-auto p-0 text-left flex-col md:flex-row w-fall">
