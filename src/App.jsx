@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
+import InputMask from 'react-input-mask'
 import { firebaseApp } from './firebase'
 import {
   getFirestore,
@@ -168,7 +169,7 @@ export const App = () => {
 
   }
   return (
-    <div className="body relative py-4" style={{ height: '100vh', background: '#f3f3f4' }}>
+    <div className="body relative py-4 h-auto">
       <div className="container m-auto p-5 bg-white h-full rounded-2xl shadow-lg">
 
         <header className="text-center">
@@ -209,25 +210,25 @@ export const App = () => {
           </div>
         </header>
 
-        <table className="table-auto w-full bg-white my-10 border-collapse">
+        <table className="table-fixed w-full bg-white my-10 border-collapse md:table-auto">
           <thead>
             <tr className="text-left bg-indigo-50 text-indigo-500">
-              <th className="px-4 py-2 w-auto">Name</th>
-              <th className="px-4 py-2 w-auto">Email</th>
-              <th className="px-4 py-2 w-auto">Phone</th>
-              <th className="px-4 py-2 w-auto">City</th>
-              <th className="px-4 py-2 w-auto">Setting</th>
+              <th className="px-4 overflow-y-auto py-2 w-auto sm:w-1/6">Name</th>
+              <th className="px-4 overflow-y-auto py-2 w-auto sm:w-1/6">Email</th>
+              <th className="px-4 overflow-y-auto py-2 w-auto sm:w-1/6">Phone</th>
+              <th className="px-4 overflow-y-auto py-2 w-auto sm:w-1/6">City</th>
+              <th className="px-4 overflow-y-auto py-2 w-auto sm:w-1/6">Setting</th>
             </tr>
           </thead>
           <tbody>
             {users.map(user => {
               return (
                 <tr key={user.id}>
-                  <td className="border px-4 py-2 w-auto text-gray-400 hover:text-gray-600 snap-x">{user.name}</td>
-                  <td className="border px-4 py-2 w-auto text-gray-400 hover:text-gray-600">{user.email}</td>
-                  <td className="border px-4 py-2 w-auto text-gray-400 hover:text-gray-600">{user.phone}</td>
-                  <td className="border px-4 py-2 w-auto text-gray-400 hover:text-gray-600">{user.city}</td>
-                  <td className="border px-4 py-2 w-auto text-gray-400 hover:text-gray-600">
+                  <td className="border px-4 py-2 overflow-y-auto w-1/6 text-gray-400 hover:text-gray-600 snap-x sm:w-auto">{user.name}</td>
+                  <td className="border px-4 py-2 overflow-y-auto w-1/6 text-gray-400 hover:text-gray-600 sm:w-auto">{user.email}</td>
+                  <td className="border px-4 py-2 overflow-y-auto w-1/6 text-gray-400 hover:text-gray-600 sm:w-auto">{user.phone}</td>
+                  <td className="border px-4 py-2 overflow-y-auto w-1/6 text-gray-400 hover:text-gray-600 sm:w-auto">{user.city}</td>
+                  <td className="border px-4 py-2 overflow-y-auto w-auto text-gray-400 hover:text-gray-600">
                     <button className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => setModalSetting(!false, setGetId(user.id))}>
                       <i className="fa-solid fa-gear"></i>
                     </button>
@@ -243,7 +244,7 @@ export const App = () => {
       {
         modal
         &&
-        <div className="modal absolute top-0 left-0 flex justify-center align-middle bg-opacity-0 w-full h-full" style={{ backgroundColor: 'rgba(0,0,0,.4)' }}>
+        <div className="modal absolute top-0 left-0 flex justify-center align-middle bg-opacity-0 w-full h-screen" style={{ backgroundColor: 'rgba(0,0,0,.4)' }}>
           <div autoComplete="off" className='box-content m-auto w-96 h-auto rounded  bg-slate-100 p-6 text-center relative translate-y-5 transition duration-500 ease-in-out'>
 
             <h1 className="h-10 text-2xl font-bold uppercase text-blue-500">{getReference == false ? 'Register Form' : 'Edit Form'}</h1>
@@ -259,6 +260,7 @@ export const App = () => {
               ></i></button>
             <div className="mb-4 w-90 flex justify-center align-center relative">
               <i className="fa fa-user mx-3.5 my-auto text-xl text-gray-400 hover:text-blue-600"></i>
+              
               <input
                 autoComplete="off"
                 id='nameValue'
@@ -284,15 +286,17 @@ export const App = () => {
 
             <div className="mb-4 w-90 flex justify-center align-center">
               <i className="fa fa-phone mx-3.5 my-auto text-xl text-gray-400 hover:text-blue-600"></i>
-              <input
+              <PhoneInput 
                 id="phoneValue"
-                autoComplete="off"
                 className="shadow py-1 px-4 w-full rounded h-12 text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4 outline-none hover:outline-blue-700" htmlFor="inline-full-name"
                 type="text"
                 placeholder="Phone"
                 defaultValue={getReference !== true ? '' : currentUser[0].phone}
                 onChange={(e) => setPhone(e.target.value)}
+                autoComplete="off"
               />
+              {/* <input
+              /> */}
             </div>
 
             <div className="mb-4 w-90 flex justify-center align-center">
@@ -310,10 +314,10 @@ export const App = () => {
             {getReference !== true
               ?
               <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleRegisterUser}>
-                {loading ? <i className="fa-solid fa-spinner animation: spin 1s linear infinite"></i> : 'Confirm'}
+                {loading ? <i className="fa-solid fa-spinner spinner_loading"></i> : 'Confirm'}
               </button>
               :
-              <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleUpdateUser(currentUser[0].id)}>     {loading ? <i className="fa-solid fa-spinner"></i> : 'Edit'}
+              <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleUpdateUser(currentUser[0].id)}>     {loading ? <i className="fa-solid fa-spinner spinner_loading"></i> : 'Edit'}
               </button>
             }
 
@@ -348,4 +352,10 @@ export const App = () => {
       }
     </div>
   )
+}
+
+class PhoneInput extends React.Component {
+  render() {
+    return <InputMask {...this.props} mask="(99) 9999-9999" maskChar=" " />;
+  }
 }
