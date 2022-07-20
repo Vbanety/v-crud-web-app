@@ -327,7 +327,7 @@ export const App = () => {
       {
         modalSetting
         &&
-        <div className="modal absolute top-0 left-0 flex justify-center align-middle bg-opacity-0 w-full h-full -z-1" style={{ backgroundColor: 'rgba(0,0,0,.4)' }}>
+        <div className="modal absolute top-0 left-0 flex justify-center align-middle bg-opacity-0 w-full h-screen -z-1" style={{ backgroundColor: 'rgba(0,0,0,.4)' }}>
           <div className='box-content m-auto w-56 h-auto rounded  bg-slate-100 p-6 text-center translate-y-5 transition duration-500 ease-in-out flex justify-center flex-col relative'>
             <i onClick={() => setModalSetting(false)} className="fa fa-close absolute right-3 top-3 text-blue-700 hover:cursor-pointer"></i>
             <h1 className="uppercase mb-5 font-bold text-blue-600">Setting</h1>
