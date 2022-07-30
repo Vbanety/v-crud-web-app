@@ -22,6 +22,10 @@
 
 - List data
 
+- Learn Tailwindcss
+
+- Learn about native function for CRUD in firebase
+
 ## SETTINGS
 
 **STEPS**
